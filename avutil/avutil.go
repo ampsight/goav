@@ -26,6 +26,9 @@ type (
 	File          C.FILE
 )
 
+// AvTimeBase is the internal time base represented as integer
+const AvTimeBase = C.AV_TIME_BASE
+
 //Return the LIBAvUTIL_VERSION_INT constant.
 func AvutilVersion() uint {
 	return uint(C.avutil_version())

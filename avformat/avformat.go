@@ -21,8 +21,8 @@ import "C"
 import (
 	"unsafe"
 
-	"github.com/ampsight/goav/avutil"
 	"github.com/ampsight/goav/avcodec"
+	"github.com/ampsight/goav/avutil"
 )
 
 type (
@@ -239,6 +239,11 @@ func AvUrlSplit(p string, ps int, a string, as int, h string, hs int, pp *int, p
 //Return in 'buf' the path with 'd' replaced by a number.
 func AvGetFrameFilename(b string, bs int, pa string, n int) int {
 	return int(C.av_get_frame_filename(C.CString(b), C.int(bs), C.CString(pa), C.int(n)))
+}
+
+// AvSeekFrame seeks to the keyframe at timestamp.
+func AvSeekFrame(s *Context, streamIndex int, timestamp int64, flags int) int {
+	return int(C.av_seek_frame((*C.struct_AVFormatContext)(unsafe.Pointer(s)), C.int(streamIndex), C.int64_t(timestamp), C.int(flags)))
 }
 
 //Check whether filename actually is a numbered sequence generator.

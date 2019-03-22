@@ -7,12 +7,18 @@ package avformat
 //#include <libavformat/avformat.h>
 import "C"
 import (
+	"unsafe"
+
 	"github.com/ampsight/goav/avcodec"
 )
 
 //Rational av_stream_get_r_frame_rate (const Stream *s)
 func (s *Stream) AvStreamGetRFrameRate() avcodec.Rational {
 	return newRational(C.av_stream_get_r_frame_rate((*C.struct_AVStream)(s)))
+}
+
+func (s *Stream) AvStreamGetTimeBase() avcodec.Rational {
+	return newRational(*((*C.struct_AVRational)(unsafe.Pointer(&s.time_base))))
 }
 
 //void av_stream_set_r_frame_rate (Stream *s, Rational r)

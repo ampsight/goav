@@ -23,6 +23,10 @@ func (p *Packet) AvInitPacket() {
 	p.data = nil
 }
 
+func (p *Packet) SetData(newData []uint8) {
+	p.data = (*C.uchar)(unsafe.Pointer(&newData))
+}
+
 //Allocate the payload of a packet and initialize its fields with default values.
 func (p *Packet) AvNewPacket(s int) int {
 	return int(C.av_new_packet((*C.struct_AVPacket)(p), C.int(s)))
